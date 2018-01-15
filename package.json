@@ -1,0 +1,30 @@
+{
+  "name": "question-issues-report",
+  "version": "1.0.0",
+  "description": "Locates questions in quizzes that have known problems when importing to Canvas.",
+  "main": "main.js",
+  "dependencies": {
+    "canvas-wrapper": "git+https://github.com/byuitechops/Canvas-wrapper",
+    "he": "^1.1.1"
+  },
+  "devDependencies": {
+    "async": "^2.6.0",
+    "child-development-kit": "github:byuitechops/child-development-kit",
+    "tap": "^10.7.3"
+  },
+  "scripts": {
+    "start": "node ./node_modules/child-development-kit/runChild.js",
+    "test": "tap ./node_modules/child-development-kit/testChild.js -T"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/byuitechops/question-issues-report.git"
+  },
+  "author": "Zachary Williams, Daniel Green",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/byuitechops/question-issues-report/issues"
+  },
+  "homepage": "https://github.com/byuitechops/question-issues-report#readme",
+  "childType": "preImport"
+}
