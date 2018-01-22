@@ -106,7 +106,6 @@ module.exports = (course, stepCallback) => {
             stepCallback(null, course);
             return;
         }
-        console.log(questionTypes);
         stepCallback(null, course);
     });
     
