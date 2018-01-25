@@ -9,7 +9,6 @@ const he = require('he');
 const cheerio = require('cheerio');
 
 module.exports = (course, stepCallback) => {
-    course.addModuleReport('question-issues-report');
 
     /* Our Info locations for various things we find */
     course.newInfo('questionTypes', {
@@ -24,7 +23,6 @@ module.exports = (course, stepCallback) => {
     });
 
     var $, quizTitle;
-    var questionTypes = course.info.questionTypes;
 
     /* Question types that have issues:
     -- Multi-Select | Turns into a multi-choice, single-select issue
@@ -37,16 +35,17 @@ module.exports = (course, stepCallback) => {
 
     /* Check the Question Type */
     function questionType($, question) {
+        
         var questionData = {
-            quiz: quizTitle,
-            title: '',
-            type: '',
-            randomized: false
+            'Quiz': quizTitle,
+            'Question Title': '',
+            'Type': '',
+            'Randomized': false
         }
 
         /* Get and set the question title */
         var questionTitle = $(question).find('presentation>flow>material>mattext').text();
-        questionData.title = cheerio.load(he.decode(questionTitle)).text();
+        questionData['Question Title'] = cheerio.load(he.decode(questionTitle)).text();
 
         /* Get the type field from the XML */
         var typeField = $(question).find('fieldlabel').filter((index, label) => {
@@ -54,29 +53,16 @@ module.exports = (course, stepCallback) => {
         });
 
         /* Get the type of the question and set it on the object*/
-        questionData.type = $(typeField).next().text();
+        questionData['Type'] = $(typeField).next().text();
 
         /* If the answers are randomized */
         var randomized = $(question).find('render_choice').attr('shuffle');
         if (randomized === 'yes') {
-            questionData.randomized = true;
+            questionData['Randomized'] = true;
         }
 
-        if (questionData.type === 'Ordering') {
-            questionTypes.ordering.push(questionData);
-        } else if (questionData.type === 'Multi-Select') {
-            questionTypes.multiSelect.push(questionData);
-        } else if (questionData.type === 'Matching') {
-            questionTypes.matching.push(questionData);
-        } else if (questionData.type === 'Significant Figures') {
-            questionTypes.sigFigure.push(questionData);
-        } else if (questionData.type === 'Arithmetic') {
-            questionTypes.arithmetic.push(questionData);
-        } else if (questionData.type === 'Multi-Short Answer') {
-            questionTypes.multiShortAnswer.push(questionData);
-        } else if (questionData.randomized == true) {
-            questionTypes.randomized.push(questionData);
-        }
+        course.log('Questions with Import Issues', questionData);
+
     }
 
 

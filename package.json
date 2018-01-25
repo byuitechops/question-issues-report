@@ -4,7 +4,7 @@
   "description": "Locates questions in quizzes that have known problems when importing to Canvas.",
   "main": "main.js",
   "dependencies": {
-    "canvas-wrapper": "git+https://github.com/byuitechops/Canvas-wrapper",
+    "canvas-wrapper": "git+https://github.com/byuitechops/Canvas-wrapper.git",
     "he": "^1.1.1"
   },
   "devDependencies": {
