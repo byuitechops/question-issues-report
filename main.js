@@ -1,7 +1,6 @@
-/*eslint-env node, es6*/
 
 /* Module Description */
-// Locates and records quiz questions that have known issues when importing into Canvas. */
+/* Locates and records quiz questions that have known issues when importing into Canvas. */
 
 /* Put dependencies here */
 const asyncLib = require('async');
@@ -22,7 +21,7 @@ module.exports = (course, stepCallback) => {
         sigFigure: [],
     });
 
-    var $, quizTitle;
+    var quizTitle;
 
     /* Question types that have issues:
     -- Multi-Select | Turns into a multi-choice, single-select issue
@@ -30,7 +29,7 @@ module.exports = (course, stepCallback) => {
     -- Matching | Swaps sides of definitions/answers
     -- Ordering | This type doesn't exist in Canvas - imports as "Error" type
     -- Randomized | You can't randomize answers in Canvas
-    -- Arithmetic | Must be reauthored as formula questions and indicate variables with []
+    -- Arithmetic | Must be re-authored as formula questions and indicate variables with []
     -- Significant Figures | Same as above */
 
     /* Check the Question Type */
@@ -41,7 +40,7 @@ module.exports = (course, stepCallback) => {
             'Question Title': '',
             'Type': '',
             'Randomized': false
-        }
+        };
 
         /* Get and set the question title */
         var questionTitle = $(question).find('presentation>flow>material>mattext').text();
@@ -72,7 +71,7 @@ module.exports = (course, stepCallback) => {
 
     /* For each quiz ... */
     asyncLib.each(quizFiles, (quizFile, eachCallback) => {
-        var $, questions;
+        var $;
 
         $ = quizFile.dom;
         quizTitle = $('assessment').attr('title');
