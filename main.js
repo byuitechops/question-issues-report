@@ -1,4 +1,3 @@
-
 /* Module Description */
 /* Locates and records quiz questions that have known issues when importing into Canvas. */
 
@@ -63,8 +62,6 @@ module.exports = (course, stepCallback) => {
         course.log('Questions with Import Issues', questionData);
 
     }
-
-
 
     /* Get the manifest */
     var quizFiles = course.content.filter(file => file.name.includes('quiz_d2l_'));
